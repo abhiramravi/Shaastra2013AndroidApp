@@ -52,28 +52,28 @@ public class EventsGallery extends Activity
 
 		public View getView(int position, View convertView, ViewGroup parent)
 		{
-			ImageView imageView;
-			if (convertView == null)
-			{
-				imageView = new ImageView(mContext);
-				imageView.setAdjustViewBounds(true);
-				imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-			} else
-			{
-				imageView = (ImageView) convertView;
-			}
+			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+			View eventBox;
+			ImageView imageView;
+			eventBox = inflater.inflate(R.layout.image_holder, null);
+
+			imageView = (ImageView) eventBox.findViewById(R.id.image);
 			imageView.setImageResource(mThumbIds[position]);
 
-			return imageView;
+			TextView textView = (TextView) eventBox
+					.findViewById(R.id.eventName);
+			textView.setText("A long Sample Event ");
+
+			return eventBox;
 		}
 
 		private Context mContext;
 
-		private Integer[] mThumbIds = {
-				R.drawable.aerobotics, R.drawable.airshow, R.drawable.android,
-				R.drawable.astronomyworkshop, R.drawable.automania, R.drawable.autoquiz,
-				R.drawable.babel, R.drawable.backday
+		private Integer[] mThumbIds = { R.drawable.aerobotics,
+				R.drawable.airshow, R.drawable.android,
+				R.drawable.astronomyworkshop, R.drawable.automania,
+				R.drawable.autoquiz, R.drawable.babel, R.drawable.backday
 
 		};
 	}

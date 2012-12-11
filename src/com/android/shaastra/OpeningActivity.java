@@ -22,7 +22,7 @@ public class OpeningActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				startActivity(new Intent(OpeningActivity.this, EventsInformation.class));
+				startActivity(new Intent(OpeningActivity.this, EventsGallery.class));
 			}
 		});
         
@@ -32,7 +32,7 @@ public class OpeningActivity extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				startActivity(new Intent(OpeningActivity.this, CoOrdinatorList.class));
+				startActivity(new Intent(OpeningActivity.this, CoordinatorList.class));
 			}
 		});
         

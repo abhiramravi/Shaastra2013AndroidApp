@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name="EventsGallery"></activity>
-        <activity android:name="CoOrdinatorList"></activity>
+        <activity android:name=".CoordinatorList"></activity>
         <activity android:name="Hospitality"></activity>
         <activity android:name="Sponsors"></activity>
         <activity android:name="EventsInformation"></activity>

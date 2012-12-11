@@ -7,5 +7,5 @@ public class Global
 	public static long waitTime = 60000;
 	public static int mapZoom = 18;
 	
-
+	
 }

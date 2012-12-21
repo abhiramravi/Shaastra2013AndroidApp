@@ -43,16 +43,17 @@ public class BirdMenuFragment extends ListFragment {
 	public void onListItemClick(ListView lv, View v, int position, long id) {
 		Fragment newContent = new BirdGridFragment(position);
 		if (newContent != null)
-			switchFragment(newContent);
+			switchFragment(newContent, position);
 	}
 	
 	// the meat of switching the above fragment
-	private void switchFragment(Fragment fragment) {
+	private void switchFragment(Fragment fragment, int position) {
 		if (getActivity() == null)
 			return;
 
 		if (getActivity() instanceof SlidingView) {
 			SlidingView ra = (SlidingView) getActivity();
+			ra.setTitle(birds[position]);
 			ra.switchContent(fragment);
 		}
 	}

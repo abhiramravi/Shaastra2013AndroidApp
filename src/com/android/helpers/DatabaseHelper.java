@@ -266,8 +266,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	{
 		Cursor mCursor;
 		mCursor = myDatabase.query(VENUE_TABLE_NAME,
-				new String[] { "venueName", "venueLat", "venueLong" }, ID + " = " + id, null, null, null,
+				new String[] { "venueName", "venueLat", "venueLong" }, ID + "=" + Integer.toString(id), null, null, null,
 				null);
+		mCursor.moveToFirst();
 		return mCursor;
 	}
 

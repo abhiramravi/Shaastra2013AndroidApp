@@ -3,6 +3,8 @@ package com.android.shaastra;
 import java.io.IOException;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -36,8 +38,8 @@ public class SlidingView extends SlidingFragmentActivity
 		dh.close();
 		/* End of database creation */
 		
-		setTitle(R.string.event_list);
-
+		setTitle("Slide for Events Menu");
+		
 		setContentView(R.layout.responsive_content_frame);
 
 		// check if the content frame contains the menu frame

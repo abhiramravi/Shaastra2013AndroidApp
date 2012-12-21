@@ -1,7 +1,10 @@
 package com.android.shaastra;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +15,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
+
+import com.android.helpers.DatabaseHelper;
 
 public class EventsInformation extends Activity
 {
@@ -37,7 +42,13 @@ public class EventsInformation extends Activity
 		setContentView(R.layout.event_information);
 
 		//eventID = getIntent().getExtras().getString("eventID");
-		getInfoFromDatabase();
+		try
+		{
+			getInfoFromDatabase();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		setEventTitle();
 		setEventImage();
 		setPrizeMoney();
@@ -48,7 +59,32 @@ public class EventsInformation extends Activity
 		
 
 	}
-	public void getInfoFromDatabase()
+	public void getInfoFromDatabase() throws IOException
+	{
+		DatabaseHelper dh = new DatabaseHelper(this);
+		dh.openDataBase();
+		
+		int eventID = getIntent().getExtras().getInt("eventID");
+		Cursor mCursor = dh.fetchDescription(eventID);
+		eventTitle = mCursor.getString(1);
+		eventPrizeMoney = mCursor.getString(4);
+		introductionText = mCursor.getString(2);
+		eventFormatText = mCursor.getString(3);
+		int val = Integer.parseInt(mCursor.getString(5));
+		mCursor.close();
+		Cursor c = dh.getLocation(val);
+		venueText = c.getString(0);
+		venueLat = Double.parseDouble(c.getString(1));
+		venueLong = Double.parseDouble(c.getString(2));
+		c.close();
+		//setDummyData();
+		
+		
+		//databaseTest();
+		dh.close();
+		//TODO : Obtain from database
+	}
+	private void setDummyData()
 	{
 		eventTitle = "This is a really long event name";
 		eventPrizeMoney = "45000";
@@ -56,10 +92,26 @@ public class EventsInformation extends Activity
 		eventFormatText = "This is the event format text";
 		venueText = "This is the venue text";
 		
-		venueLat = 12.132412;
-		venueLong = 77.123512;
+		venueLat = 12.98936;
+		venueLong = 80.23578;
 		
-		//TODO : Obtain from database
+	}
+	private void databaseTest() throws IOException
+	{
+		DatabaseHelper dh = new DatabaseHelper(this);
+		try
+		{
+			dh.createDataBase();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		dh.openDataBase();
+		//Cursor c = dh.fetchDescription(1);
+		Cursor c = dh.fetchCords("abinav");
+		
+		debug(c.getString(1));
+		
 	}
 	public void setEventTitle()
 	{
@@ -166,6 +218,10 @@ public class EventsInformation extends Activity
 				vf.setDisplayedChild(2);
 			}
 		});
+	}
+	public void debug(String msg)
+	{
+		Log.d("EventsInformation", msg);
 	}
 
 }

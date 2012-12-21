@@ -1,80 +1,171 @@
 package com.android.shaastra;
 
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.view.animation.AnimationUtils;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.ViewFlipper;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.ViewGroup.MarginLayoutParams;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Gallery;
+
+import com.android.helpers.EventAdapter;
+import com.android.helpers.GalleryClickListener;
+import com.android.helpers.gallerymanager;
+import com.android.views.EventImage;
+import com.android.views.SlowGallery;
 
 public class EventsGallery extends Activity
 {
+	private EventImage[] events;
+	private float scale;
+
+	gallerymanager sources;
+
+	private DisplayMetrics metrics;
+
+	/** Called when the activity is first created. */
+
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+		case R.id.maps:
+
+			//TODO Intent i = new Intent(this, CordListActivity.class);
+
+			//this.startActivity(i);
+			break;
+		case R.id.coordlist:
+
+			//TODO Intent in = new Intent(this, FullCordListActivity.class);
+
+			//startActivity(in);
+			break;
+
+		}
+		return true;
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.event_list);
+		sources = new gallerymanager();
 
-		GridView g = (GridView) findViewById(R.id.myGrid);
-		g.setAdapter(new ImageAdapter(this));
+		setContentView(R.layout.events_gallery);
+
+		Log.v("APP", "reached 1");
+
+		// l.setBackgroundResource(R.drawable.slider);
+		//  TextView t=(TextView) findViewById(R.id.t1);
+		//t.setTypeface(font1);
+
+		//t.setTextColor(Color.GREEN);
+		metrics = new DisplayMetrics();
+
+		this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+		scale = this.getResources().getDisplayMetrics().density;
+
+		initialisegalleries();
+		//     Intent i = new Intent(this,scheduletab.class);
+		//    startActivity(i);
+
 	}
 
-	public class ImageAdapter extends BaseAdapter
+	public void alignGallery(Gallery gallery)
 	{
-		public ImageAdapter(Context c)
-		{
-			mContext = c;
-		}
-
-		public int getCount()
-		{
-			return mThumbIds.length;
-		}
-
-		public Object getItem(int position)
-		{
-			return position;
-		}
-
-		public long getItemId(int position)
-		{
-			return position;
-		}
-
-		public View getView(int position, View convertView, ViewGroup parent)
-		{
-			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-			View eventBox;
-			ImageView imageView;
-			eventBox = inflater.inflate(R.layout.image_holder, null);
-
-			imageView = (ImageView) eventBox.findViewById(R.id.image);
-			imageView.setImageResource(mThumbIds[position]);
-
-			TextView textView = (TextView) eventBox
-					.findViewById(R.id.eventName);
-			textView.setText("A long Sample Event ");
-
-			return eventBox;
-		}
-
-		private Context mContext;
-
-		private Integer[] mThumbIds = { R.drawable.aerobotics,
-				R.drawable.airshow, R.drawable.android,
-				R.drawable.astronomyworkshop, R.drawable.automania,
-				R.drawable.autoquiz, R.drawable.babel, R.drawable.backday
-
-		};
+		MarginLayoutParams mlp = (MarginLayoutParams) gallery.getLayoutParams();
+		mlp.setMargins(-(metrics.widthPixels / 2 + (int) (25 * scale + 0.5f)), mlp.topMargin, mlp.rightMargin,
+				mlp.bottomMargin);
 	}
+
+	void initialisegalleries()
+	{
+
+		SlowGallery gallery = (SlowGallery) findViewById(R.id.gallery1);
+
+		EventAdapter e = new EventAdapter(this, 0);
+		gallery.setAdapter(e);
+		gallery.setOnItemClickListener((OnItemClickListener) new GalleryClickListener(0, this));
+		alignGallery(gallery);
+
+		gallery = (SlowGallery) findViewById(R.id.gallery2);
+
+		e = new EventAdapter(this, 1);
+		gallery.setAdapter(e);
+		gallery.setOnItemClickListener((OnItemClickListener) new GalleryClickListener(1, this));
+
+		alignGallery(gallery);
+
+		gallery = (SlowGallery) findViewById(R.id.gallery3);
+		e = new EventAdapter(this, 2);
+		gallery.setAdapter(e);
+		gallery.setOnItemClickListener((OnItemClickListener) new GalleryClickListener(2, this));
+
+		alignGallery(gallery);
+		gallery = (SlowGallery) findViewById(R.id.gallery4);
+		e = new EventAdapter(this, 3);
+		gallery.setAdapter(e);
+
+		gallery.setOnItemClickListener((OnItemClickListener) new GalleryClickListener(3, this));
+
+		alignGallery(gallery);
+		gallery = (SlowGallery) findViewById(R.id.gallery5);
+		e = new EventAdapter(this, 4);
+		gallery.setAdapter(e);
+		gallery.setOnItemClickListener((OnItemClickListener) new GalleryClickListener(4, this));
+
+		alignGallery(gallery);
+		gallery = (SlowGallery) findViewById(R.id.gallery6);
+		e = new EventAdapter(this, 5);
+		gallery.setAdapter(e);
+
+		gallery.setOnItemClickListener((OnItemClickListener) new GalleryClickListener(5, this));
+		alignGallery(gallery);
+		gallery = (SlowGallery) findViewById(R.id.gallery7);
+		e = new EventAdapter(this, 6);
+		gallery.setAdapter(e);
+		gallery.setOnItemClickListener((OnItemClickListener) new GalleryClickListener(6, this));
+
+		alignGallery(gallery);
+		gallery = (SlowGallery) findViewById(R.id.gallery8);
+		e = new EventAdapter(this, 7);
+		gallery.setAdapter(e);
+		gallery.setOnItemClickListener((OnItemClickListener) new GalleryClickListener(7, this));
+
+		alignGallery(gallery);
+
+		gallery = (SlowGallery) findViewById(R.id.gallery9);
+		e = new EventAdapter(this, 8);
+		gallery.setAdapter(e);
+		gallery.setOnItemClickListener((OnItemClickListener) new GalleryClickListener(8, this));
+
+		alignGallery(gallery);
+		gallery = (SlowGallery) findViewById(R.id.gallerya);
+		e = new EventAdapter(this, 9);
+		gallery.setAdapter(e);
+		gallery.setOnItemClickListener((OnItemClickListener) new GalleryClickListener(9, this));
+
+		alignGallery(gallery);//gallery.setAdapter(e); 
+		gallery = (SlowGallery) findViewById(R.id.galleryb);
+		e = new EventAdapter(this, 10);
+		gallery.setAdapter(e);
+		gallery.setOnItemClickListener((OnItemClickListener) new GalleryClickListener(10, this));
+
+		alignGallery(gallery);
+
+	}
+
+	
 }

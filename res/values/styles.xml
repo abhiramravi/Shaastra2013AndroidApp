@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	<style name="ExampleTheme" parent="Theme.Sherlock">
+        <item name="homeAsUpIndicator">@drawable/new_indicator</item>
+        <item name="android:homeAsUpIndicator">@drawable/new_indicator</item>
+    </style>
+    
     <style name="FirstText">
         <item name="android:colorForeground">#f0f</item>
         <item name="android:padding">2sp</item>
@@ -33,8 +37,8 @@
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">0dip</item>
         <item name="android:paddingLeft">1dip</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:layout_height">wrap_content </item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_centerHorizontal">true</item>

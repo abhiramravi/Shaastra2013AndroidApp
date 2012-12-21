@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import android.content.Context;
@@ -29,7 +30,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	private SQLiteDatabase myDatabase;
 	private final Context myContext;
 
-	public DatabaseHelper(Context context, String name, CursorFactory factory, int version)
+	public DatabaseHelper(Context context, String name, CursorFactory factory,
+			int version)
 	{
 		super(context, name, factory, version);
 		this.myContext = context;
@@ -46,8 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		boolean dbExist = checkDataBase();
 		if (dbExist)
 		{
-		}
-		else
+		} else
 		{
 			// By calling this method and empty database will be created into
 			// the default system path
@@ -58,8 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 			try
 			{
 				copyDataBase();
-			}
-			catch (IOException e)
+			} catch (IOException e)
 			{
 				throw new Error("Error copying database " + e.toString());
 			}
@@ -72,9 +72,9 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		try
 		{
 			String myPath = DB_PATH + DB_NAME;
-			checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-		}
-		catch (SQLiteException e)
+			checkDB = SQLiteDatabase.openDatabase(myPath, null,
+					SQLiteDatabase.OPEN_READONLY);
+		} catch (SQLiteException e)
 		{
 			Log.e("database", e.toString());
 		}
@@ -121,7 +121,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	{
 		// Open the database
 		String myPath = DB_PATH + DB_NAME;
-		myDatabase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+		myDatabase = SQLiteDatabase.openDatabase(myPath, null,
+				SQLiteDatabase.OPEN_READONLY);
 
 	}
 
@@ -133,7 +134,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
 	{
-		Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
+		Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
+				+ newVersion + ", which will destroy all old data");
 		db.execSQL("DROP TABLE IF EXISTS events");
 		onCreate(db);
 	}
@@ -148,9 +150,13 @@ public class DatabaseHelper extends SQLiteOpenHelper
 
 	public Cursor fetchDescription(long eventId) throws SQLException
 	{
+		String[] columns = new String[] { ID,
+				"eventName", "introduction", "format", "prize", "venueID",
+				"time" 
+				};
 		Cursor mCursor =
 		// order matters here
-		myDatabase.query(true, EVENT_DETAILS_TABLE_NAME, new String[] { ID, "eventName", "introduction", "format", "prize", "venueID", "time" }, ID + "=" + eventId, null, null, null, null, null);
+		myDatabase.query(EVENT_DETAILS_TABLE_NAME, columns, ID + "=" + eventId, null, null, null, null);
 		if (mCursor != null)
 		{
 			mCursor.moveToFirst();
@@ -165,15 +171,18 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		{
 			Long id = Long.valueOf(eventId);
 
-			mCursor = myDatabase.query("coordList", new String[] { ID, "coordName", "phone", "eventID" }, "eventID= ?", new String[] { id.toString() }, null, null, null);
+			mCursor = myDatabase.query("coordList", new String[] { ID,
+					"coordName", "phone", "eventID" }, "eventID= ?",
+					new String[] { id.toString() }, null, null, null);
 			if (mCursor != null)
 			{
 				mCursor.moveToFirst();
 			}
-		}
-		else
+		} else
 		{
-			mCursor = myDatabase.query("coordList", new String[] { ID, "coordName", "phone", "eventID" }, null, null, null, null, null);
+			mCursor = myDatabase.query("coordList", new String[] { ID,
+					"coordName", "phone", "eventID" }, null, null, null, null,
+					null);
 			if (mCursor != null)
 			{
 				mCursor.moveToFirst();
@@ -186,7 +195,8 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	{
 		Cursor mCursor;
 
-		mCursor = myDatabase.query("coordList", new String[] { ID, "coordName", "phone", "eventID" }, null, null, null, null, null);
+		mCursor = myDatabase.query("coordList", new String[] { ID, "coordName",
+				"phone", "eventID" }, null, null, null, null, null);
 		if (mCursor != null)
 		{
 			mCursor.moveToFirst();
@@ -198,25 +208,67 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	public Cursor fetchCords(String search) throws SQLException
 	{
 		Cursor mCursor;
-		mCursor = myDatabase.query("coordList", new String[] { ID, "coordName", "phone", "eventID" }, "name like ? or dept like ?", new String[] { "%" + search + "%", "%" + search + "%" }, null, null, null);
+		mCursor = myDatabase.query("coordList", new String[] { ID, "coordName",
+				"phone", "eventID" }, "coordName like ? or eventID like ?",
+				new String[] { "%" + search + "%", "%" + search + "%" }, null,
+				null, null);
 		if (mCursor != null)
 		{
 			mCursor.moveToFirst();
 		}
 		return mCursor;
 	}
+	/* Queries the category table and gets the list of categories in order */
+	public String[] getCategoryList() throws SQLException
+	{
+		Cursor mCursor;
+		mCursor = myDatabase.query(EVENT_CATEGORY_TABLE_NAME, new String[]{"eventCategoryName"}, null, null, null, null, null);
+		
+		ArrayList<String> a = new ArrayList<String>();
+		while(mCursor.moveToNext())
+		{
+			a.add(mCursor.getString(0));
+		}
+		mCursor.close();
+		String[] b = new String[a.size()];
+		for(int i = 0; i < a.size(); i++)
+		{
+			b[i] = a.get(i);
+		}
+		
+		/* Some other side thingees for faster querying */
+		Global.categoryCount = a.size();
+		
+		return b;
+		
+	}
+	public Cursor getEventsForCategory(int category)
+	{
+		Cursor mCursor;
+		mCursor = myDatabase.query(EVENT_DETAILS_TABLE_NAME, new String[]{ID, "eventName"}, "eventCategoryID = " + category, null, null, null, null);
+		return mCursor;
+	}
 	public int sizeOfCategories() throws SQLException
 	{
 		Cursor mCursor;
-		mCursor = myDatabase.query("eventDetails", new String[] {"eventCategoryID"}, null, null, null, null, null);
+		mCursor = myDatabase.query("eventDetails",
+				new String[] { "eventCategoryID" }, null, null, null, null,
+				null);
 		HashSet<Integer> h = new HashSet<Integer>();
-		while(mCursor.moveToNext())
+		while (mCursor.moveToNext())
 		{
 			h.add(mCursor.getInt(0));
 		}
-		
-		
+		mCursor.close();
 		return h.size();
+	}
+	public Cursor getLocation(int id)
+	{
+		Cursor mCursor;
+		mCursor = myDatabase.query(VENUE_TABLE_NAME,
+				new String[] { "venueName", "venueLat", "venueLong" }, ID + " = " + id, null, null, null,
+				null);
+		return mCursor;
 	}
 
 }

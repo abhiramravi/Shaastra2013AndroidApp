@@ -104,6 +104,9 @@ public class BirdGridFragment extends Fragment {
 			}
 			ImageView img = (ImageView) convertView.findViewById(R.id.grid_item_img);
 			TextView tv = (TextView) convertView.findViewById(R.id.grid_item_txt);
+			ImageView myImage = (ImageView) convertView.findViewById(R.id.translucent);
+			int alphaAmount = 192; // some value 0-255 where 0 is fully transparent and 255 is fully opaque
+			myImage.setAlpha(alphaAmount);
 			tv.setText(eventNames[position][1]);
 			Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Regular.ttf");  
 			tv.setTypeface(font);  

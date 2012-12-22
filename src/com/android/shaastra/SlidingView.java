@@ -80,6 +80,7 @@ public class SlidingView extends SlidingFragmentActivity
 		sm.setShadowDrawable(R.drawable.shadow);
 		sm.setBehindScrollScale(0.25f);
 		sm.setFadeDegree(0.25f);
+		sm.showMenu();
 
 		// show the explanation dialog
 		/*if (savedInstanceState == null)

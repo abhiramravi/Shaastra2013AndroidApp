@@ -41,7 +41,7 @@
         <item name="android:layout_height">40sp</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:background">#70000000</item>
+        <item name="android:background">#00000000</item>
     </style>
     <style name="eventText2" parent="android:Theme.Translucent">
         <item name="android:colorForeground">#f0f</item>
@@ -55,7 +55,7 @@
         <item name="android:layout_height">70sp</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:background">#70000000</item>
+        <item name="android:background">#40000000</item>
     </style>
 
     <style name="headerText.mainmenu2">

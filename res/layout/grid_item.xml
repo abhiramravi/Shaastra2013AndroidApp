@@ -9,6 +9,12 @@
         android:layout_height="140dp"
         android:scaleType="centerCrop"
         android:src="@drawable/airshow" />
+    <ImageView
+        android:id="@+id/translucent"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/diagonal_black" />
     <TextView 
         android:id="@+id/grid_item_txt"
         android:text="Event 1"

@@ -1,53 +1,78 @@
 package com.android.shaastra;
 
+import java.io.IOException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.DatabaseErrorHandler;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class OpeningActivity extends Activity 
+import com.android.helpers.DatabaseHelper;
+import com.android.helpers.HTTPHelper;
+
+public class OpeningActivity extends Activity
 {
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) 
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
-        
-        Button events = (Button) findViewById(R.id.events_button);
-        events.setOnClickListener(new OnClickListener()
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.main);
+
+		try
+		{
+			somePreliminaryDatabaseTests();
+		} catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+
+		Button events = (Button) findViewById(R.id.events_button);
+		events.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				startActivity(new Intent(OpeningActivity.this, SlidingView.class));
+				startActivity(new Intent(OpeningActivity.this,
+						SlidingView.class));
 			}
 		});
-        
-        Button coords = (Button) findViewById(R.id.coords_button);
-        coords.setOnClickListener(new OnClickListener()
+
+		Button coords = (Button) findViewById(R.id.coords_button);
+		coords.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				startActivity(new Intent(OpeningActivity.this, CoordinatorList.class));
+				startActivity(new Intent(OpeningActivity.this,
+						CoordinatorList.class));
 			}
 		});
-        
-        Button hospi = (Button) findViewById(R.id.hospi_button);
-        hospi.setOnClickListener(new OnClickListener()
+
+		Button hospi = (Button) findViewById(R.id.hospi_button);
+		hospi.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
 			{
-				startActivity(new Intent(OpeningActivity.this, Hospitality.class));
+				startActivity(new Intent(OpeningActivity.this,
+						Hospitality.class));
 			}
 		});
-        
-        Button spons = (Button) findViewById(R.id.spons_button);
-        spons.setOnClickListener(new OnClickListener()
+
+		Button spons = (Button) findViewById(R.id.spons_button);
+		spons.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View v)
@@ -55,5 +80,84 @@ public class OpeningActivity extends Activity
 				startActivity(new Intent(OpeningActivity.this, Sponsors.class));
 			}
 		});
-    }
+	}
+
+	private void somePreliminaryDatabaseTests() throws JSONException
+	{
+		/* Creating the database at the beginning of the sliding activity */
+		DatabaseHelper dh = new DatabaseHelper(this);
+		try
+		{
+			dh.createDataBase();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		String eventInfo = HTTPHelper.getData("http://api.shaastra.org/events");
+		JSONObject eventJson = new JSONObject(eventInfo);
+
+		SQLiteDatabase db = dh.getWritableDatabase();
+		
+		JSONArray eventArray = eventJson.getJSONArray("events");
+		
+		int categoryCount = 0;
+		for (int i = 0; i < eventArray.length(); i++)
+		{
+			boolean inc = false;
+			JSONObject j = eventArray.getJSONObject(i);
+			String eventName = j.getString("title");
+			String eventID = j.getString("id");
+			String eventCategory = j.getString("category");
+			Cursor c = db.query(DatabaseHelper.EVENT_CATEGORY_TABLE_NAME,
+					new String[] { "_id" }, "eventCategoryName = '"
+							+ eventCategory + "'", null, null, null, null);
+			c.moveToFirst();
+			int val = -1;
+			if(c.getCount() <= 0)
+			{	//add to category database
+				Log.d("category not present, adding", eventCategory);
+				String sql = "INSERT INTO " + DatabaseHelper.EVENT_CATEGORY_TABLE_NAME + " VALUES (" + 
+				categoryCount + ", '" + eventCategory + "')";
+				val = categoryCount;
+				inc = true;
+				db.execSQL(sql);
+			}
+			else
+			{
+				val = Integer.parseInt(c.getString(0));
+			}
+			
+			JSONObject jE = new JSONObject(HTTPHelper.getData("http://api.shaastra.org/events/" + eventID));
+			String status = jE.getString("status");
+			if(!status.equals("200")) {c.close(); continue;}
+			String introduction = jE.getString("Introduction");
+			String format = jE.getString("Event Format");
+			String time = " ";
+			String venueid = "0";
+			String prizemoney = " ";
+			
+			//String prizemoney = jE.getString("Prize Money");
+			
+			/*String sql2 = "INSERT INTO " + DatabaseHelper.EVENT_DETAILS_TABLE_NAME + " VALUES (\"" +
+			time + "\", " + Integer.parseInt(eventID) + ", \"" + val + "\", \"" + eventName + "\", \"" + introduction
+			+ "\", \"" + format + "\", \"" + prizemoney + "\", \"" + venueid + "\")";*/
+			
+			ContentValues cv = new ContentValues();
+			cv.put("time", time);
+			cv.put("_id", Integer.parseInt(eventID));
+			cv.put("eventCategoryID", val);
+			cv.put("eventName", eventName);
+			cv.put("introduction", introduction);
+			cv.put("format", format);
+			cv.put("prize", prizemoney);
+			cv.put("venueID", venueid);
+			db.insert(DatabaseHelper.EVENT_DETAILS_TABLE_NAME, null, cv);
+			if(inc) categoryCount++;
+			c.close();
+			
+		}
+		dh.close();
+
+	}
 }

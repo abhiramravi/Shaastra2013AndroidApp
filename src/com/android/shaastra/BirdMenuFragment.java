@@ -59,7 +59,7 @@ public class BirdMenuFragment extends ListFragment {
 
 		if (getActivity() instanceof SlidingView) {
 			SlidingView ra = (SlidingView) getActivity();
-			ra.setTitle(birds[position]);
+			ra.setTitle("   " + birds[position]);
 			ra.switchContent(fragment);
 		}
 	}

@@ -12,6 +12,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -133,6 +134,46 @@ public class HTTPHelper {
 				"Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.1.2) Gecko/20090729 Firefox/3.5.2 (.NET CLR 3.5.30729)");
 		huc.connect();
 		return huc.getResponseCode();
+	}
+	
+	public static String getData(String url)
+	{
+		try {
+			Log.d("URL", url
+					+ getResponseCode(url));
+		} catch (MalformedURLException e1) {
+			Log.d("failed", "URL is invalid");
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpParams myParams = new BasicHttpParams();
+		HttpConnectionParams.setConnectionTimeout(myParams, 5000);
+		HttpConnectionParams.setSoTimeout(myParams, 5000);
+		String temp = "";
+		try {
+
+			HttpGet httpget = new HttpGet(url.toString());
+			httpget.setHeader("Content-type", "application/json");
+
+			HttpResponse response = null;
+			try {
+				response = httpclient.execute(httpget);
+			} catch (Exception e) {
+				Log.d("Failed", "Invalid URL");
+				return "null";
+			}
+			temp = EntityUtils.toString(response.getEntity());
+
+			// Checking the status of the server
+			Log.i("Successful Response", temp);
+
+		} catch (ClientProtocolException e) {
+
+		} catch (IOException e) {
+		}
+		return temp;
 	}
 }
 

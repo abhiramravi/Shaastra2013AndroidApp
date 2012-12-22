@@ -21,10 +21,10 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	private static String DB_PATH = "/data/data/com.android.shaastra/databases/";
 	private static String DB_NAME = "shaastra.db";
 	private static String TAG = "Databasehelper";
-	private static String EVENT_DETAILS_TABLE_NAME = "eventDetails";
-	private static String EVENT_CATEGORY_TABLE_NAME = "eventCategory";
-	private static String VENUE_TABLE_NAME = "eventVenues";
-	private static String COORDINATOR_TABLE_NAME = "coordList";
+	public static String EVENT_DETAILS_TABLE_NAME = "eventDetails";
+	public static String EVENT_CATEGORY_TABLE_NAME = "eventCategory";
+	public static String VENUE_TABLE_NAME = "eventVenues";
+	public static String COORDINATOR_TABLE_NAME = "coordList";
 	private static String ID = "_id";
 
 	private SQLiteDatabase myDatabase;

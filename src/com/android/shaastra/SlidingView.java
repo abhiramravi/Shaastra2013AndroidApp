@@ -25,20 +25,10 @@ public class SlidingView extends SlidingFragmentActivity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		/* Creating the database at the beginning of the sliding activity 
-		 *  TODO : Maybe better if we do it earlier */
-		DatabaseHelper dh = new DatabaseHelper(this);
-		try
-		{
-			dh.createDataBase();
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		dh.close();
+		
 		/* End of database creation */
 		
-		setTitle("Slide for Events Menu");
+		setTitle("  Slide for Menu");
 		
 		setContentView(R.layout.responsive_content_frame);
 
@@ -80,7 +70,7 @@ public class SlidingView extends SlidingFragmentActivity
 		sm.setShadowDrawable(R.drawable.shadow);
 		sm.setBehindScrollScale(0.25f);
 		sm.setFadeDegree(0.25f);
-		sm.showMenu();
+		sm.showMenu(true);
 
 		// show the explanation dialog
 		/*if (savedInstanceState == null)

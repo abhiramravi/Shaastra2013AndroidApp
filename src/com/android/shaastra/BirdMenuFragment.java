@@ -1,7 +1,7 @@
 package com.android.shaastra;
 
-import com.android.helpers.DatabaseHelper;
-
+import android.content.Context;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -9,7 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
+import android.widget.TextView;
+
+import com.android.helpers.DatabaseHelper;
 
 
 public class BirdMenuFragment extends ListFragment {
@@ -26,8 +31,9 @@ public class BirdMenuFragment extends ListFragment {
 		
 		getCategoriesFromDatabase();
 		 
-		ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(), 
-				android.R.layout.simple_list_item_1, android.R.id.text1, birds);
+		/*ArrayAdapter<String> colorAdapter = new ArrayAdapter<String>(getActivity(), 
+				android.R.layout.simple_list_item_1, android.R.id.text1, birds);*/
+		ListMenuAdapter<String> colorAdapter = new ListMenuAdapter<String>(getActivity(), android.R.id.text1);
 		setListAdapter(colorAdapter);
 	}
 	
@@ -56,5 +62,36 @@ public class BirdMenuFragment extends ListFragment {
 			ra.setTitle(birds[position]);
 			ra.switchContent(fragment);
 		}
+	}
+	public class ListMenuAdapter<String> extends ArrayAdapter<String>
+	{
+
+		public ListMenuAdapter(Context context, int textViewResourceId)
+		{
+			super(context, textViewResourceId);
+		}
+
+		@Override
+		public int getCount()
+		{
+			return birds.length;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent)
+		{
+			LayoutInflater li = LayoutInflater.from(getContext());
+			View v = li.inflate(R.layout.slidingmenu_item, null);
+			TextView tv = (TextView) v.findViewById(R.id.menu_item_txt);
+			tv.setText(birds[position]);
+			ImageView iv = (ImageView) v.findViewById(R.id.menu_item_img);
+			iv.setImageResource(R.drawable.diagonal_black);
+			Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Regular.ttf");  
+			tv.setTypeface(font);  
+			return v;
+		}
+
+		
+		
 	}
 }

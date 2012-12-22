@@ -2,9 +2,9 @@ package com.android.shaastra;
 
 import android.content.res.TypedArray;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +36,7 @@ public class BirdGridFragment extends Fragment {
 		mImgRes = imgs.getResourceId(mPos, -1);
 		
 		GridView gv = (GridView) inflater.inflate(R.layout.list_grid, null);
-		gv.setBackgroundResource(android.R.color.black);
+		gv.setBackgroundResource(R.drawable.diagonal_black);
 		final GridAdapter ga = new GridAdapter(mPos);
 		gv.setAdapter(ga);
 		gv.setOnItemClickListener(new OnItemClickListener() {
@@ -105,6 +105,8 @@ public class BirdGridFragment extends Fragment {
 			ImageView img = (ImageView) convertView.findViewById(R.id.grid_item_img);
 			TextView tv = (TextView) convertView.findViewById(R.id.grid_item_txt);
 			tv.setText(eventNames[position][1]);
+			Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Regular.ttf");  
+			tv.setTypeface(font);  
 			setImageForPosition(position);
 			img.setImageResource(mImgRes);
 			return convertView;
@@ -112,8 +114,12 @@ public class BirdGridFragment extends Fragment {
 
 		private void setImageForPosition(int position)
 		{
-			//TODO : Set image as a function of position
-			//mImgRes = ??
+			//TODO
+			/* Create a hash map wit hall the mapping between event name and image.*/
+			/**
+			HashMap<Integer, Integer> imageHash = new HashMap<Integer, Integer>();
+			fillHashMap(imageHash, Global.imageList);
+			*/
 			
 		}
 		

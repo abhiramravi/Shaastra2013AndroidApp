@@ -32,14 +32,27 @@
     <style name="eventText" parent="android:Theme.Translucent">
         <item name="android:colorForeground">#f0f</item>
         <item name="android:padding">2sp</item>
-        <item name="android:textSize">11sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">0dip</item>
         <item name="android:paddingLeft">1dip</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:background">#70000000</item>
+    </style>
+    <style name="eventText2" parent="android:Theme.Translucent">
+        <item name="android:colorForeground">#f0f</item>
+        <item name="android:padding">2sp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">0dip</item>
+        <item name="android:paddingLeft">1dip</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">70sp</item>
         <item name="android:layout_alignParentBottom">true</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:background">#70000000</item>

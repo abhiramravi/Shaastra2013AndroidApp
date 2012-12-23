@@ -2,6 +2,9 @@ package com.android.shaastra;
 
 import java.io.IOException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -23,10 +26,12 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.android.helpers.DatabaseHelper;
 import com.android.helpers.Global;
+import com.android.helpers.HTTPHelper;
 
 public class EventsInformation extends Activity
 {
@@ -309,6 +314,25 @@ public class EventsInformation extends Activity
 		switch (item.getItemId())
 		{
 		case R.id.announcements:
+			try
+			{
+				String json = HTTPHelper.getData("http://api.shaastra.org/events/" + eventID);
+				JSONObject j = new JSONObject();
+			
+				j = new JSONObject(json);
+				String announcements = j.getString("announcements");
+				String updates = j.getString("updates");
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						EventsInformation.this);
+				builder.setMessage("Annoucements :\n" + announcements + "\nUpdates:\n" + updates);
+				AlertDialog alert = builder.create();
+				alert.show();
+				
+			} catch (Exception e)
+			{
+				Toast.makeText(getApplicationContext(), "Unable to get updates at the moment", 3000);
+				e.printStackTrace();
+			}
 			
 			return true;
 		case R.id.coordlist:

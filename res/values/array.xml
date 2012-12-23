@@ -14,14 +14,7 @@
 
     <string-array name="birds_img">
         <item>@drawable/aerobotics</item>
-        <item>@drawable/chemtrek</item>
-        <item>@drawable/estockbazaar</item>
-        <item>@drawable/ethicalhacking</item>
-        <item>@drawable/firenice</item>
-        <item>@drawable/gamersinn</item>
-        <item>@drawable/astronomyworkshop</item>
-        <item>@drawable/hackfest</item>
-        <item>@drawable/wright</item>
+        
     </string-array>
 
 </resources>

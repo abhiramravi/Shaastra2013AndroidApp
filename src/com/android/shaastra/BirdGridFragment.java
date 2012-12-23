@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.helpers.DatabaseHelper;
+import com.android.helpers.Global;
 
 
 public class BirdGridFragment extends Fragment {
@@ -117,13 +118,7 @@ public class BirdGridFragment extends Fragment {
 
 		private void setImageForPosition(int position)
 		{
-			//TODO
-			/* Create a hash map wit hall the mapping between event name and image.*/
-			/**
-			HashMap<Integer, Integer> imageHash = new HashMap<Integer, Integer>();
-			fillHashMap(imageHash, Global.imageList);
-			*/
-			
+			mImgRes = Global.h.get(Integer.parseInt(eventNames[position][0]));
 		}
 		
 	}

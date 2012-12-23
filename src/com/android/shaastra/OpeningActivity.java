@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.helpers.DatabaseHelper;
+import com.android.helpers.Global;
 import com.android.helpers.HTTPHelper;
 
 public class OpeningActivity extends Activity
@@ -30,6 +31,8 @@ public class OpeningActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		
+		Global.initHashMap();
 		/* Creating the database at the beginning of the sliding activity */
 		DatabaseHelper dh = new DatabaseHelper(this);
 		try
@@ -150,9 +153,9 @@ public class OpeningActivity extends Activity
 			String format = jE.getString("Event Format");
 			String time = " ";
 			String venueid = "0";
-			String prizemoney = " ";
+			//String prizemoney = " ";
 			
-			//String prizemoney = jE.getString("Prize Money");
+			String prizemoney = jE.getString("Prize Money");
 			
 			/*String sql2 = "INSERT INTO " + DatabaseHelper.EVENT_DETAILS_TABLE_NAME + " VALUES (\"" +
 			time + "\", " + Integer.parseInt(eventID) + ", \"" + val + "\", \"" + eventName + "\", \"" + introduction

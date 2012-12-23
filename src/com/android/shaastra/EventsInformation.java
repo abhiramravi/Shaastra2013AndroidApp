@@ -21,11 +21,12 @@ import android.widget.TextView;
 import android.widget.ViewFlipper;
 
 import com.android.helpers.DatabaseHelper;
+import com.android.helpers.Global;
 
 public class EventsInformation extends Activity
 {
 	/* The event ID obtained from the intent */
-	public String eventID;
+	public int eventID;
 
 	/* The information obtained from the databases */
 	public String eventTitle;
@@ -66,7 +67,7 @@ public class EventsInformation extends Activity
 		DatabaseHelper dh = new DatabaseHelper(this);
 		dh.openDataBase();
 
-		int eventID = (int) getIntent().getExtras().getLong("eventID");
+		eventID = (int) getIntent().getExtras().getLong("eventID");
 		//setDummyData();
 
 		Cursor mCursor = dh.fetchDescription(eventID);
@@ -134,7 +135,7 @@ public class EventsInformation extends Activity
 	public void setEventImage()
 	{
 		ImageView iv = (ImageView) findViewById(R.id.event_image);
-		// iv.setImage();
+		iv.setImageResource(Global.h.get(eventID));
 	}
 
 	public void setPrizeMoney()

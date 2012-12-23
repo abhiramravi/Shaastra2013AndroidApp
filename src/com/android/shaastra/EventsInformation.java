@@ -3,6 +3,8 @@ package com.android.shaastra;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Canvas;
@@ -141,7 +143,18 @@ public class EventsInformation extends Activity
 	public void setPrizeMoney()
 	{
 		Button b = (Button) findViewById(R.id.prizeMoney);
-		b.setText("Prize Money:\n Rs. " + eventPrizeMoney);
+		b.setText("Prize Money");
+		b.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v)
+			{
+				AlertDialog.Builder builder = new AlertDialog.Builder(EventsInformation.this);
+				builder.setMessage(eventPrizeMoney);
+				AlertDialog alert = builder.create();
+				alert.show();
+			}
+		});
 	}
 
 	Button b;

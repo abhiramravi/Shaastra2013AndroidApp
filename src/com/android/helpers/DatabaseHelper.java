@@ -164,16 +164,14 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		return mCursor;
 	}
 
-	public Cursor fetchCordDetails(long eventId) throws SQLException
+	public Cursor fetchCordDetails(String name) throws SQLException
 	{
 		Cursor mCursor;
-		if (eventId != 0)
+		if (name != null)
 		{
-			Long id = Long.valueOf(eventId);
-
 			mCursor = myDatabase.query("coordList", new String[] { ID,
-					"coordName", "phone", "eventID" }, "eventID= ?",
-					new String[] { id.toString() }, null, null, null);
+					"coordName", "phone", "eventName" }, "eventName= ?",
+					new String[] { name }, null, null, null);
 			if (mCursor != null)
 			{
 				mCursor.moveToFirst();
@@ -181,7 +179,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		} else
 		{
 			mCursor = myDatabase.query("coordList", new String[] { ID,
-					"coordName", "phone", "eventID" }, null, null, null, null,
+					"coordName", "phone", "eventName" }, null, null, null, null,
 					null);
 			if (mCursor != null)
 			{
@@ -196,7 +194,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		Cursor mCursor;
 
 		mCursor = myDatabase.query("coordList", new String[] { ID, "coordName",
-				"phone", "eventID" }, null, null, null, null, null);
+				"phone", "eventName" }, null, null, null, null, null);
 		if (mCursor != null)
 		{
 			mCursor.moveToFirst();
@@ -209,7 +207,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 	{
 		Cursor mCursor;
 		mCursor = myDatabase.query("coordList", new String[] { ID, "coordName",
-				"phone", "eventID" }, "coordName like ? or eventID like ?",
+				"phone", "eventName" }, "coordName like ? or eventName like ?",
 				new String[] { "%" + search + "%", "%" + search + "%" }, null,
 				null, null);
 		if (mCursor != null)

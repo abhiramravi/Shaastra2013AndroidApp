@@ -72,7 +72,7 @@ public class OpeningActivity extends Activity
 			public void onClick(View v)
 			{
 				startActivity(new Intent(OpeningActivity.this,
-						CoordinatorList.class));
+						FullCordListActivity.class));
 			}
 		});
 
@@ -175,6 +175,29 @@ public class OpeningActivity extends Activity
 			c.close();
 			
 		}
+		
+		String coordInfo = HTTPHelper.getData("http://api.shaastra.org/coords");
+		JSONObject coordJson = new JSONObject(coordInfo);
+		JSONArray coords = coordJson.getJSONArray("users");
+		
+		for(int i = 0; i < coords.length(); i++)
+		{
+			JSONObject j = coords.getJSONObject(i);
+			
+			String coordName = j.getString("name");
+			String coordID = j.getString("id");
+			String eventName = j.getString("department");
+			String phone = j.getString("phone");
+			
+			ContentValues cv = new ContentValues();
+			cv.put("_id", coordID);
+			cv.put("coordName", coordName);
+			cv.put("phone", phone);
+			cv.put("eventName", eventName);
+			
+			db.insert(DatabaseHelper.COORDINATOR_TABLE_NAME, null, cv);
+		}
+		
 		dh.close();
 
 	}

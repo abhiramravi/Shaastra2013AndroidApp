@@ -4,4 +4,6 @@
     <string name="hello">Hello World, OpeningActivity!</string>
     <string name="app_name">Shaastra - 2013</string>
 	<string name="event_list">Event List</string>
+	<string name="search_hint">Enter name or dept for search</string>
+    <string name="search_label">search</string>
 </resources>

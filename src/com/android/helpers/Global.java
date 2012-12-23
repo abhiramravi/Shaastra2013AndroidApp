@@ -84,6 +84,7 @@ public class Global
 		h.put(84, R.drawable.ornithopter);
 		h.put(85, R.drawable.robotics);
 		h.put(92, R.drawable.productdesign);
+		h.put(91, R.drawable.cubeopen);
 		h.put(93, R.drawable.tshirtdesign);
 		h.put(94, R.drawable.idp2);
 		h.put(95, R.drawable.productdesign);

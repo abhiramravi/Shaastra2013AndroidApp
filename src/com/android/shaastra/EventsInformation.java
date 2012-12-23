@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -75,7 +76,7 @@ public class EventsInformation extends Activity
 		eventFormatText = mCursor.getString(3);
 		int val = Integer.parseInt(mCursor.getString(5));
 		mCursor.close();
-		
+
 		venueLat = 12.98936;
 		venueLong = 80.23578;
 
@@ -87,7 +88,7 @@ public class EventsInformation extends Activity
 		c.close();
 		*/
 		//setDummyData();
-		
+
 		//databaseTest();
 		dh.close();
 		//TODO : Obtain from database
@@ -150,7 +151,7 @@ public class EventsInformation extends Activity
 	{
 		vf = (ViewFlipper) findViewById(R.id.flipper);
 		LayoutInflater li = LayoutInflater.from(this);
-		
+
 		/* The introduction view */
 		View introduction = li.inflate(R.layout.event_desciption_inflate, null);
 		TextView tb = (TextView) introduction.findViewById(R.id.tablabel2);
@@ -159,7 +160,7 @@ public class EventsInformation extends Activity
 		tv.setText(introductionText);
 		b = (Button) introduction.findViewById(R.id.viewOnMap);
 		b.setVisibility(View.INVISIBLE);
-		
+
 		/* The Event Format View */
 		View eventFormat = li.inflate(R.layout.event_desciption_inflate, null);
 		TextView tb2 = (TextView) eventFormat.findViewById(R.id.tablabel2);
@@ -168,7 +169,7 @@ public class EventsInformation extends Activity
 		tv2.setText(eventFormatText);
 		b2 = (Button) eventFormat.findViewById(R.id.viewOnMap);
 		b2.setVisibility(View.INVISIBLE);
-		
+
 		/* The Venue and Maps View */
 		View venue = li.inflate(R.layout.event_desciption_inflate, null);
 		TextView tb3 = (TextView) venue.findViewById(R.id.tablabel2);
@@ -178,26 +179,32 @@ public class EventsInformation extends Activity
 		b3 = (Button) venue.findViewById(R.id.viewOnMap);
 		b3.setOnClickListener(new OnClickListener()
 		{
-			
+
 			@Override
 			public void onClick(View v)
 			{
 				Log.d("MAP INITIATE", "This initiates the map");
-				
+				/*
 				Intent i = new Intent(EventsInformation.this, Maps.class);
 				i.putExtra("Latitude", venueLat);
 				i.putExtra("Longitude", venueLong);
 				startActivity(i);
-				
+				*/
+				Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+						Uri.parse(getUrl(venueLat, venueLong)));
+				startActivity(intent);
+
 			}
 		});
 		/* Adding these to the flipper */
 		vf.addView(introduction);
 		vf.addView(eventFormat);
 		vf.addView(venue);
-		vf.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_in));
-		vf.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.fade_out));
-		
+		vf.setInAnimation(AnimationUtils.loadAnimation(this,
+				android.R.anim.fade_in));
+		vf.setOutAnimation(AnimationUtils.loadAnimation(this,
+				android.R.anim.fade_out));
+
 		vf.setDisplayedChild(0);
 		//vf.setFlipInterval(3000);
 		//vf.startFlipping();
@@ -243,11 +250,30 @@ public class EventsInformation extends Activity
 	{
 		Log.d("EventsInformation", msg);
 	}
+
 	public void resetButtons()
 	{
-		b.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_bordered));
-		b2.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_bordered));
-		b3.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_bordered));
+		b.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.button_bordered));
+		b2.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.button_bordered));
+		b3.setBackgroundDrawable(getResources().getDrawable(
+				R.drawable.button_bordered));
 	}
-
+	public static String getUrl(double toLat,
+			double toLon)
+	{// connect to map web service
+		StringBuffer urlString = new StringBuffer();
+		urlString.append("http://maps.google.com/maps?f=d&hl=en");
+		urlString.append("&saddr=");// from
+		//urlString.append(Double.toString(fromLat));
+		//urlString.append("current");
+		//urlString.append(Double.toString(fromLon));
+		urlString.append("&daddr=");// to
+		urlString.append(Double.toString(toLat));
+		urlString.append(",");
+		urlString.append(Double.toString(toLon));
+		urlString.append("&ie=UTF8&0&om=0&output=kml");
+		return urlString.toString();
+	}
 }

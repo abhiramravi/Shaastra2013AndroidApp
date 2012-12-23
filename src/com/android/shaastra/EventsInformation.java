@@ -76,11 +76,14 @@ public class EventsInformation extends Activity
 		int val = Integer.parseInt(mCursor.getString(5));
 		mCursor.close();
 
+		/*
 		Cursor c = dh.getLocation(val);
 		venueText = c.getString(0);
 		venueLat = Double.parseDouble(c.getString(1));
 		venueLong = Double.parseDouble(c.getString(2));
 		c.close();
+		*/
+		
 		//setDummyData();
 
 		//databaseTest();

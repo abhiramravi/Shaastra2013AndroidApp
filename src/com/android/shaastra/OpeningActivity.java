@@ -29,7 +29,7 @@ public class OpeningActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
+/*
 		try
 		{
 			somePreliminaryDatabaseTests();
@@ -37,7 +37,7 @@ public class OpeningActivity extends Activity
 		{
 			e.printStackTrace();
 		}
-
+*/
 		Button events = (Button) findViewById(R.id.events_button);
 		events.setOnClickListener(new OnClickListener()
 		{

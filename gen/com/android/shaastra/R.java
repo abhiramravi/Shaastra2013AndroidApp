@@ -1259,6 +1259,7 @@ containing a value of this type.
         public static final int abs__title=0x7f060020;
         public static final int abs__titleDivider=0x7f060021;
         public static final int abs__up=0x7f06000b;
+        public static final int announcements=0x7f06006d;
         public static final int content_frame=0x7f060038;
         public static final int coordlist=0x7f06006e;
         public static final int coords_button=0x7f060060;
@@ -1296,7 +1297,6 @@ containing a value of this type.
         public static final int layout1=0x7f06004c;
         public static final int left=0x7f060010;
         public static final int listMode=0x7f060002;
-        public static final int maps=0x7f06006d;
         public static final int margin=0x7f060012;
         public static final int menu_frame=0x7f060065;
         public static final int menu_item_img=0x7f060067;

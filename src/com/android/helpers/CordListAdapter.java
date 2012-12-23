@@ -47,7 +47,7 @@ public class CordListAdapter extends CursorAdapter
 		{
 			String eventTitle = cursor.getString(3);
 			String namestr = cursor.getString(1);
-			name.setText(namestr);
+			name.setText(namestr.toUpperCase());
 			String phonestr = cursor.getString(2);
 			number.setText(phonestr);
 			eventName.setText(eventTitle);

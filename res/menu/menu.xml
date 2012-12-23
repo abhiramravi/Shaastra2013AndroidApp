@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/maps"
+    <item android:id="@+id/announcements"
           
-          android:title="Maps" />
+          android:title="Announcements" />
     <item android:id="@+id/coordlist"
           
           android:title="Coordinator List" />

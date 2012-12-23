@@ -14,6 +14,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
@@ -137,6 +140,7 @@ public class EventsInformation extends Activity
 	public void setEventImage()
 	{
 		ImageView iv = (ImageView) findViewById(R.id.event_image);
+		Log.d("eventid", Integer.toString(eventID));
 		iv.setImageResource(Global.h.get(eventID));
 	}
 
@@ -149,7 +153,8 @@ public class EventsInformation extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				AlertDialog.Builder builder = new AlertDialog.Builder(EventsInformation.this);
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						EventsInformation.this);
 				builder.setMessage(eventPrizeMoney);
 				AlertDialog alert = builder.create();
 				alert.show();
@@ -274,8 +279,8 @@ public class EventsInformation extends Activity
 		b3.setBackgroundDrawable(getResources().getDrawable(
 				R.drawable.button_bordered));
 	}
-	public static String getUrl(double toLat,
-			double toLon)
+
+	public static String getUrl(double toLat, double toLon)
 	{// connect to map web service
 		StringBuffer urlString = new StringBuffer();
 		urlString.append("http://maps.google.com/maps?f=d&hl=en");
@@ -289,5 +294,30 @@ public class EventsInformation extends Activity
 		urlString.append(Double.toString(toLon));
 		urlString.append("&ie=UTF8&0&om=0&output=kml");
 		return urlString.toString();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch (item.getItemId())
+		{
+		case R.id.announcements:
+			
+			return true;
+		case R.id.coordlist:
+			Intent i = new Intent(EventsInformation.this, CordListActivity.class);
+			i.putExtra("eventName", eventTitle);
+			startActivity(i);
+		default:
+			return false;
+
+		}
 	}
 }

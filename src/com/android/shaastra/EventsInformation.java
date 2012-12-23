@@ -75,6 +75,9 @@ public class EventsInformation extends Activity
 		eventFormatText = mCursor.getString(3);
 		int val = Integer.parseInt(mCursor.getString(5));
 		mCursor.close();
+		
+		venueLat = 12.98936;
+		venueLong = 80.23578;
 
 		/*
 		Cursor c = dh.getLocation(val);
@@ -83,9 +86,8 @@ public class EventsInformation extends Activity
 		venueLong = Double.parseDouble(c.getString(2));
 		c.close();
 		*/
-		
 		//setDummyData();
-
+		
 		//databaseTest();
 		dh.close();
 		//TODO : Obtain from database

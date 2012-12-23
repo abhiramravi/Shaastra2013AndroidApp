@@ -27,6 +27,7 @@
         <activity android:name="EventsInformation"></activity>
         <activity android:name="Maps"></activity>
         <activity android:name="SlidingView"></activity>
+        <activity android:name="CoverflowTestingActivity"></activity>
     </application>
 
 </manifest>

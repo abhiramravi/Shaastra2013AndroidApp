@@ -146,7 +146,7 @@ public class Maps extends MapActivity
 				/* This line may cause problems on some devices - check it out */
 				view.invalidate();
 				
-				
+				manager.removeUpdates(this);
 				Intent intent = new Intent(android.content.Intent.ACTION_VIEW, 
 			    Uri.parse(getUrl(current.getLatitudeE6()/ 1E6, current.getLongitudeE6()/ 1E6, destLat, destLong)));
 				startActivity(intent);

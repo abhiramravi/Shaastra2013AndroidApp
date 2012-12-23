@@ -13,8 +13,8 @@
         android:id="@+id/translucent"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:scaleType="matrix"
-        android:src="@drawable/diagonal_black" />
+        android:scaleType="fitXY"
+        android:src="@drawable/button_grad" />
     <TextView 
         android:id="@+id/grid_item_txt"
         android:text="Event 1"

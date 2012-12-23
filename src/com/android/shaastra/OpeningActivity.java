@@ -10,13 +10,14 @@ import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.helpers.DatabaseHelper;
 import com.android.helpers.HTTPHelper;
@@ -29,6 +30,15 @@ public class OpeningActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		/* Creating the database at the beginning of the sliding activity */
+		DatabaseHelper dh = new DatabaseHelper(this);
+		try
+		{
+			dh.createDataBase();
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 /*
 		try
 		{
@@ -38,7 +48,9 @@ public class OpeningActivity extends Activity
 			e.printStackTrace();
 		}
 */
+		Typeface myTypeface = Typeface.createFromAsset(getAssets(), "Roboto-Regular.ttf");
 		Button events = (Button) findViewById(R.id.events_button);
+		events.setTypeface(myTypeface);
 		events.setOnClickListener(new OnClickListener()
 		{
 			@Override
@@ -50,6 +62,7 @@ public class OpeningActivity extends Activity
 		});
 
 		Button coords = (Button) findViewById(R.id.coords_button);
+		coords.setTypeface(myTypeface);
 		coords.setOnClickListener(new OnClickListener()
 		{
 			@Override
@@ -61,6 +74,7 @@ public class OpeningActivity extends Activity
 		});
 
 		Button hospi = (Button) findViewById(R.id.hospi_button);
+		hospi.setTypeface(myTypeface);
 		hospi.setOnClickListener(new OnClickListener()
 		{
 			@Override
@@ -72,6 +86,7 @@ public class OpeningActivity extends Activity
 		});
 
 		Button spons = (Button) findViewById(R.id.spons_button);
+		spons.setTypeface(myTypeface);
 		spons.setOnClickListener(new OnClickListener()
 		{
 			@Override

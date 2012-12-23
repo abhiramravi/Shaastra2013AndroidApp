@@ -32,7 +32,7 @@
     <style name="eventText" parent="android:Theme.Translucent">
         <item name="android:colorForeground">#f0f</item>
         <item name="android:padding">2sp</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:gravity">center</item>
         <item name="android:paddingTop">0dip</item>

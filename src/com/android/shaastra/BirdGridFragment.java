@@ -36,7 +36,7 @@ public class BirdGridFragment extends Fragment {
 		mImgRes = imgs.getResourceId(mPos, -1);
 		
 		GridView gv = (GridView) inflater.inflate(R.layout.list_grid, null);
-		gv.setBackgroundResource(R.drawable.diagonal_black);
+		gv.setBackgroundResource(R.drawable.diagonal_blue);
 		final GridAdapter ga = new GridAdapter(mPos);
 		gv.setAdapter(ga);
 		gv.setOnItemClickListener(new OnItemClickListener() {

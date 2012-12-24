@@ -171,7 +171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper
 		{
 			mCursor = myDatabase.query("coordList", new String[] { ID,
 					"coordName", "phone", "eventName" }, "eventName like ?",
-					new String[] { name }, null, null, null);
+					new String[] { "%" +name + "%" }, null, null, null);
 			if (mCursor != null)
 			{
 				mCursor.moveToFirst();

@@ -45,6 +45,7 @@ public class OpeningActivity extends Activity
 		{
 			e.printStackTrace();
 		}
+		dh.close();
 /*
 		try
 		{

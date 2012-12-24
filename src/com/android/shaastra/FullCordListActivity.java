@@ -50,14 +50,7 @@ public class FullCordListActivity extends ListActivity
 		}
 
 		DatabaseHelper myDbHelper = new DatabaseHelper(this);
-		try
-		{
-			myDbHelper.createDataBase();
-
-		} catch (IOException ioe)
-		{
-			throw new Error("database not created");
-		}
+		
 		myDbHelper.openDataBase();
 		Cursor cursor;
 		if (query == "")

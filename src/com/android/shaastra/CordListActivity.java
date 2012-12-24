@@ -34,20 +34,14 @@ public class CordListActivity extends ListActivity
 		eventName = extras.getString("eventName");
 		Log.e("list Activity ", "event Id " + eventName);
 		DatabaseHelper myDbHelper = new DatabaseHelper(this);
-		try
-		{
-			myDbHelper.createDataBase();
-
-		} catch (IOException ioe)
-		{
-			throw new Error("database not created");
-		}
+		
 		myDbHelper.openDataBase();
 		setAliter();
 		Cursor cursor = myDbHelper.fetchCordDetails(eventName);
 		startManagingCursor(cursor);
 		CordListAdapter adapter = new CordListAdapter(this, cursor);
 		this.setListAdapter(adapter);
+		myDbHelper.close();
 
 	}
 
@@ -67,7 +61,7 @@ public class CordListActivity extends ListActivity
 			eventName = "Online Events";
 		if (eventName.toLowerCase().contains("scdc"))
 			eventName = "SCDC";
-		if (eventName.contains("Industry Defined"))
+		if (eventName.contains("Industry Defined") || eventName.contains("GE"))
 			eventName = "IDP";
 		if (eventName.toLowerCase().contains("hovercraft"))
 			eventName = "Hovercraft";

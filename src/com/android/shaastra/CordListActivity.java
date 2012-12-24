@@ -73,6 +73,8 @@ public class CordListActivity extends ListActivity
 			eventName = "Hovercraft";
 		if (eventName.toLowerCase().contains("lectures"))
 			eventName = "Lectures";
+		if (eventName.toLowerCase().contains("paper planes"))
+			eventName = "Paper Plane";
 
 		if (eventName.equals("Air Show") || eventName.equals("Research Expo")
 				|| eventName.equals("Envisage")

@@ -2,6 +2,7 @@ package com.android.shaastra;
 
 import java.io.IOException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -320,11 +321,23 @@ public class EventsInformation extends Activity
 				JSONObject j = new JSONObject();
 			
 				j = new JSONObject(json);
-				String announcements = j.getString("announcements");
-				String updates = j.getString("updates");
+				JSONArray announcements = j.getJSONArray("announcements");
+				String ann = "";
+				for(int i = 0; i < announcements.length(); i++)
+				{
+					ann += (i+1) + ") " + announcements.getString(i) + "\n";
+				}
+				
+				JSONArray updates = j.getJSONArray("updates");
+				
+				String upd = "";
+				for(int i = 0; i < updates.length(); i++)
+				{
+					upd += (i+1) + ") " + updates.getString(i) + "\n";
+				}
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						EventsInformation.this);
-				builder.setMessage("Annoucements :\n" + announcements + "\nUpdates:\n" + updates);
+				builder.setMessage("Announcements :\n" + ann + "\nUpdates:\n" + upd);
 				AlertDialog alert = builder.create();
 				alert.show();
 				

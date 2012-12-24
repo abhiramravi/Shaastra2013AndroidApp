@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/diagonal_black"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/eventTitle"
+        style="@style/EventHeaderText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Credits" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/line" />
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/intro"
+            style="@style/TabButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Shaastra 2013 MobOps Team" />
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/menu_item_txt"
+                style="@style/creditstext"
+                android:text="Abhiram R" 
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/menu_item_txt"
+                style="@style/creditstext"
+                android:text="Karthik Abinav"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/menu_item_txt"
+                style="@style/creditstext"
+                android:text="Vignesh K" 
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/menu_item_txt"
+                style="@style/creditstext"
+                android:text="" 
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="top|left"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical" >
+        <TextView
+                android:id="@+id/menu_item_txt"
+                style="@style/creditstext2"
+                android:text="© Copyright 2013. Shaastra MobOps. This Android Application is for non-commercial use only. No part of this Android Application may be exploited in any way used for derivative works, or offered for sale, or used to construct any kind of database or mirrored at any other location without the express written permission of the Shaastra Team" 
+                android:layout_weight="1"/>
+        
+    </LinearLayout>
+
+</LinearLayout>

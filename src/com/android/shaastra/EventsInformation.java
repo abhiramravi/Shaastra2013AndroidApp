@@ -159,11 +159,28 @@ public class EventsInformation extends Activity
 			@Override
 			public void onClick(View v)
 			{
-				AlertDialog.Builder builder = new AlertDialog.Builder(
-						EventsInformation.this);
-				builder.setMessage(eventPrizeMoney);
-				AlertDialog alert = builder.create();
-				alert.show();
+				String json = HTTPHelper
+						.getData("http://api.shaastra.org/events/" + eventID);
+				JSONObject j = new JSONObject();
+				try
+				{
+					j = new JSONObject(json);
+					String dynamicPrizeMoney = j.getString("Prize Money");
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							EventsInformation.this);
+					builder.setMessage(dynamicPrizeMoney);
+					AlertDialog alert = builder.create();
+					alert.show();
+
+				} catch (JSONException e)
+				{
+					AlertDialog.Builder builder = new AlertDialog.Builder(
+							EventsInformation.this);
+					builder.setMessage("Unable to connect to server at the moment");
+					AlertDialog alert = builder.create();
+					alert.show();
+				}
+
 			}
 		});
 	}
@@ -317,39 +334,45 @@ public class EventsInformation extends Activity
 		case R.id.announcements:
 			try
 			{
-				String json = HTTPHelper.getData("http://api.shaastra.org/events/" + eventID);
+				String json = HTTPHelper
+						.getData("http://api.shaastra.org/events/" + eventID);
 				JSONObject j = new JSONObject();
-			
+
 				j = new JSONObject(json);
 				JSONArray announcements = j.getJSONArray("announcements");
 				String ann = "";
-				for(int i = 0; i < announcements.length(); i++)
+				for (int i = 0; i < announcements.length(); i++)
 				{
-					ann += (i+1) + ") " + announcements.getString(i) + "\n";
+					ann += (i + 1) + ") " + announcements.getString(i) + "\n";
 				}
-				
+
 				JSONArray updates = j.getJSONArray("updates");
-				
+
 				String upd = "";
-				for(int i = 0; i < updates.length(); i++)
+				for (int i = 0; i < updates.length(); i++)
 				{
-					upd += (i+1) + ") " + updates.getString(i) + "\n";
+					upd += (i + 1) + ") " + updates.getString(i) + "\n";
 				}
 				AlertDialog.Builder builder = new AlertDialog.Builder(
 						EventsInformation.this);
-				builder.setMessage("Announcements :\n" + ann + "\nUpdates:\n" + upd);
+				builder.setMessage("Announcements :\n" + ann + "\nUpdates:\n"
+						+ upd);
 				AlertDialog alert = builder.create();
 				alert.show();
-				
+
 			} catch (Exception e)
 			{
-				Toast.makeText(getApplicationContext(), "Unable to get updates at the moment", 3000);
-				e.printStackTrace();
+				AlertDialog.Builder builder = new AlertDialog.Builder(
+						EventsInformation.this);
+				builder.setMessage("Unable to connect to server at the moment");
+				AlertDialog alert = builder.create();
+				alert.show();
 			}
-			
+
 			return true;
 		case R.id.coordlist:
-			Intent i = new Intent(EventsInformation.this, CordListActivity.class);
+			Intent i = new Intent(EventsInformation.this,
+					CordListActivity.class);
 			i.putExtra("eventName", eventTitle);
 			startActivity(i);
 		default:

@@ -120,4 +120,11 @@ public class FullCordListActivity extends ListActivity
 
 		}
 	}
+
+	@Override
+	public void onBackPressed()
+	{
+		startActivity(new Intent(this, OpeningActivity.class));
+	}
+	
 }

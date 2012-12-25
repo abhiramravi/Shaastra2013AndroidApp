@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-   <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/vertical_secroll_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:scrollbars="none" >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/vertical_secroll_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@drawable/diagonal_black"
-    android:orientation="vertical" >
+    android:layout_gravity="center_horizontal"
+    android:scrollbars="none" >
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="180sp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/shaastra_logo" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        
+        android:orientation="vertical" >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/line" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="180sp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/shaastra_logo" />
 
- 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/line" />
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -35,7 +35,7 @@
 
             <Button
                 android:id="@+id/events_button"
-                android:layout_width="150sp"
+                android:layout_width="180sp"
                 android:layout_height="50sp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/custombutton"
@@ -46,34 +46,34 @@
 
             <Button
                 android:id="@+id/coords_button"
-                android:layout_width="150sp"
+                android:layout_width="180sp"
                 android:layout_height="50sp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4sp"
                 android:background="@drawable/custombutton"
-                android:text="COORDS"
-                android:textColor="#FFF"
-                android:textSize="20sp"
+                android:shadowColor="#000000"
                 android:shadowDx="5"
                 android:shadowDy="5"
-                android:shadowColor="#000000"
+                android:text="COORDINATORS"
+                android:textColor="#FFF"
+                android:textSize="20sp"
                 android:typeface="sans" />
 
             <Button
                 android:id="@+id/hospi_button"
-                android:layout_width="150sp"
+                android:layout_width="180sp"
                 android:layout_height="50sp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4sp"
                 android:background="@drawable/custombutton"
-                android:text="HOSPI"
+                android:text="HOSPITALITY"
                 android:textColor="#FFF"
                 android:textSize="20sp"
                 android:typeface="sans" />
 
             <Button
                 android:id="@+id/spons_button"
-                android:layout_width="150sp"
+                android:layout_width="180sp"
                 android:layout_height="50sp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="4sp"
@@ -83,7 +83,6 @@
                 android:textSize="20sp"
                 android:typeface="sans" />
         </LinearLayout>
-    
+    </LinearLayout>
 
-</LinearLayout>
 </ScrollView>
